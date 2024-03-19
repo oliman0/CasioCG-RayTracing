@@ -219,7 +219,7 @@ vec3 Trace(struct Ray ray, struct Sphere spheres[NUMOFSPHERES], struct Plane pla
     vec3 light = (vec3){FPT_ONE, FPT_ONE, FPT_ONE};
     vec3 colour = VOID_COLOUR;
 
-    fixed32_t refDim = FTOFIX(1.2f);
+    fixed32_t refDim = 39322;
 
     struct HitInfo sHit = TraceSpheres(ray, spheres);
     struct HitInfo lsHit = TraceLSpheres(ray, lights);
@@ -265,7 +265,7 @@ vec3 Trace(struct Ray ray, struct Sphere spheres[NUMOFSPHERES], struct Plane pla
             }
         }
 
-        refDim -= FTOFIX(0.2f);
+        refDim -= 6554;
     }
 
     light = vec3_add(light, (vec3){AMBIENT, AMBIENT, AMBIENT});
