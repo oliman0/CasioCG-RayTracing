@@ -258,7 +258,7 @@ vec3 Trace(struct Ray ray, struct Sphere spheres[NUMOFSPHERES], struct Plane pla
             }
             else {
                 vec3 refcolour = pHit.material.colour;
-                ray.origin = vec3_add(pHit.point, (vec3){0, 0, FTOFIX(0.1f)});
+                ray.origin = vec3_add(pHit.point, vec3_mul_s(ray.direction, FTOFIX(-0.1f)));
                 ray.direction = vec3_reflect(ray.direction, pHit.normal);
                 sHit = TraceSpheres(ray, spheres);
                 pHit = TracePlanes(ray, planes);
@@ -312,12 +312,12 @@ int main(void) {
     ray.origin = (vec3){0, 0, 0};
 
     struct Sphere sphere[100];
-	sphere[0].center = (vec3){FTOFIX(-2.5f), FTOFIX(3.0f), FTOFIX(-7.0f)};
+	sphere[0].center = (vec3){FTOFIX(-2.5f), FTOFIX(3.0f), FTOFIX(-9.0f)};
     sphere[0].radius = FTOFIX(2.0f);
     sphere[0].material.colour = (vec3){FPT_ONE, FPT_ONE, FPT_ONE};
     sphere[0].material.smoothness = 1;
 
-    sphere[1].center = (vec3){FTOFIX(2.5f), FTOFIX(3.0f), FTOFIX(-8.5f)};
+    sphere[1].center = (vec3){FTOFIX(2.5f), FTOFIX(3.0f), FTOFIX(-7.5f)};
     sphere[1].radius = FTOFIX(2.0f);
     sphere[1].material.colour = (vec3){FTOFIX(0.8), FTOFIX(0.4), FTOFIX(0.4)};
     sphere[1].material.smoothness = 0;
@@ -325,38 +325,38 @@ int main(void) {
     struct Plane plane[100];
     //left wall red
     plane[0].max = (vec3){FTOFIX(-5.0f), FTOFIX(5.0f), 0};
-    plane[0].min = (vec3){FTOFIX(-5.1f), FTOFIX(-5.0f), FTOFIX(-11.0f)};
+    plane[0].min = (vec3){FTOFIX(-5.1f), FTOFIX(-5.0f), FTOFIX(-13.0f)};
     plane[0].normal = (vec3){FPT_ONE, 0, 0};
     plane[0].material.colour = (vec3){FPT_ONE, 0, 0};
     plane[0].material.smoothness = 0;
 
     //floor white
     plane[1].max = (vec3){FTOFIX(-5.0f), FTOFIX(5.0f), 0};
-    plane[1].min = (vec3){FTOFIX(5.0f), FTOFIX(5.1f), FTOFIX(-11.0f)};
+    plane[1].min = (vec3){FTOFIX(5.0f), FTOFIX(5.1f), FTOFIX(-13.0f)};
     plane[1].normal = (vec3){0, -FPT_ONE, 0};
     plane[1].material.colour = (vec3){FPT_ONE, FPT_ONE, FPT_ONE};
     plane[1].material.smoothness = 0;
 
     //right wall green
     plane[2].max = (vec3){FTOFIX(5.0f), FTOFIX(5.0f), 0};
-    plane[2].min = (vec3){FTOFIX(5.1f), FTOFIX(-5.0f), FTOFIX(-11.0f)};
+    plane[2].min = (vec3){FTOFIX(5.0f), FTOFIX(-5.0f), FTOFIX(-13.0f)};
     plane[2].normal = (vec3){-FPT_ONE, 0, 0};
     plane[2].material.colour = (vec3){0, FPT_ONE, 0};
     plane[2].material.smoothness = 0;
 
     //roof white
     plane[3].max = (vec3){FTOFIX(-5.0f), FTOFIX(-5.0f), 0};
-    plane[3].min = (vec3){FTOFIX(5.0f), FTOFIX(-5.0f), FTOFIX(-11.0f)};
+    plane[3].min = (vec3){FTOFIX(5.0f), FTOFIX(-5.0f), FTOFIX(-13.0f)};
     plane[3].normal = (vec3){0, FPT_ONE, 0};
     plane[3].material.colour = (vec3){FPT_ONE, FPT_ONE, FPT_ONE};
     plane[3].material.smoothness = 0;
 
     //back wall mirror
-    plane[4].max = (vec3){FTOFIX(-5.0f), FTOFIX(5.0f), FTOFIX(-11.0f)};
-    plane[4].min = (vec3){FTOFIX(5.0f), FTOFIX(-5.0f), FTOFIX(-11.0f)};
+    plane[4].max = (vec3){FTOFIX(-5.0f), FTOFIX(5.0f), FTOFIX(-13.0f)};
+    plane[4].min = (vec3){FTOFIX(5.0f), FTOFIX(-5.0f), FTOFIX(-13.0f)};
     plane[4].normal = (vec3){0, 0, FPT_ONE};
     plane[4].material.colour = (vec3){FTOFIX(0.9f), FTOFIX(0.9f), FTOFIX(0.9f)};
-    plane[4].material.smoothness = 0;
+    plane[4].material.smoothness = 1;
 
     struct Light light[100];
     light[0].sphere.center = (vec3){0, FTOFIX(-4.8f), FTOFIX(-7.0f)};
